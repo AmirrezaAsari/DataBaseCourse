@@ -21,7 +21,7 @@ export class UserService {
 
   async create(user: any): Promise<OkPacket> {
     const [result]: [OkPacket, FieldPacket[]] = await this.connection.query(
-      'INSERT INTO user (name, email, password, type) VALUES (?, ?, ?)',
+      'INSERT INTO user (name, email, password, type) VALUES (?, ?, ?, ?)',
       [user.name, user.email, user.password, user.type],
     );
     return result;
