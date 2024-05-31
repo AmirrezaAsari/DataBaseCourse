@@ -42,4 +42,10 @@ export class UserService {
     );
     return result;
   }
+
+  async findByEmail(email: string): Promise<any> {
+    const [rows, fields]: [RowDataPacket[], FieldPacket[]] =
+      await this.connection.query('SELECT * FROM user WHERE email = ?', [email]);
+    return rows[0];
+  }
 }
