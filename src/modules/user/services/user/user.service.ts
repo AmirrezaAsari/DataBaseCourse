@@ -21,7 +21,7 @@ export class UserService {
 
   async create(user: any): Promise<OkPacket> {
     const [result]: [OkPacket, FieldPacket[]] = await this.connection.query(
-      'INSERT INTO user (name, email, password, type) VALUES (?, ?, ?)',
+      'INSERT INTO user (name, email, password, type) VALUES (?, ?, ?, ?)',
       [user.name, user.email, user.password, user.type],
     );
     return result;
@@ -41,5 +41,11 @@ export class UserService {
       [id],
     );
     return result;
+  }
+
+  async findByEmail(email: string): Promise<any> {
+    const [rows, fields]: [RowDataPacket[], FieldPacket[]] =
+      await this.connection.query('SELECT * FROM user WHERE email = ?', [email]);
+    return rows[0];
   }
 }
